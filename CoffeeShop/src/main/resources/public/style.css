@@ -1,248 +1,16 @@
-.column {
-	float: none;
-	display: inline-flex;
-	width: 80%;
-	align-content: stretch;
-	justify-content: space-evenly;
-	flex-wrap: wrap;
-	align-items: center;
-	padding-left: 10%;
 
-}
-body {
-	background-color: #f0ece2;
-}
-
-.column ::after {
-	display: contents;
-	text-align: center;
-	font-size: 20%;
-	background-color: #ccc;
-	
-}
-
-
-/* Clear floats after the columns */
-.row:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-
-/* Style the navigation bar */
-.navbar {
-	width: 100%;
-	background-color: #dfd3c3;
-	align-items: center;
-}
-
-/* Navbar links */
-.navbar a {
-	float: left;
-	text-align: center;
-	padding-left: 2%;
-	color: #321313;
-	text-decoration: none;
-	font-size: 17px;
-}
-
-/* Navbar links on mouse-over */
-.navbar a:hover {
-	background-color: ghostwhite;
-}
-
-/* Current/active navbar link */
-.active {
-	background-color: DFD3C3;
-
-}
-
-.logo {
-	background-color: #DFD3C3;
-}
-
-.image1 {
-	border-style: solid;
-	border-width: 1%;
-	border-color: linen;
-	padding-right: 1%;
-	background-color: #fccf5b;
-	
-}
-
-.image1:hover {
-	opacity: 0.3;
-
-}
-
-.main {
-	width: 100%;
-	float: left;
-	height: 25%;
-	text-align: right;
-	font-family: "Lucida Console", cursive;
-	font-style: italic;
-	background-color: #FAF7F0;
-	
-}
-
-div.gallery {
-	border: 1px solid #ccc;
-	position: relative;
-	padding-top: 5%;
-}
-
-.hide {
-
-	visibility: hidden;
-	text-align: center;
-	padding: 20px;
-
-}
-
-div:hover .hide {
-	visibility: visible;
-	display: block;
-	position: absolute;
-	width: 100%;
-	background-color: white;
-	opacity: 0.9;
-	color: black;
-
-}
-
-.points{
-	
-   
-    color: #321313;
-    background-color: #FAF7F0;
-    display: flex;
-    align-content: center;
-    flex-direction: column;
-    height: 100%;
-    padding-top: 2%;
-    float: right;
-    width: fit-content;
-    height: 387px;
-    justify-content: space-around;
-    flex-wrap: nowrap;
-    align-items: stretch;
-   
-
-}
-
-.points1{
-	padding-top: 2px;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: space-between;
-    align-items: stretch;
-}
-i{
-	padding-right:2px
-}
-
-.txt {
-	display: flex;
-	flex-wrap: nowrap;
-	justify-content: left;
-	text-shadow: 2px 2px #a55233;
-	font-style: oblique;
-	color: #fda403;
-	font-stretch: expanded;
-	padding-left: 1%;
-	padding-top: 1%;
-	position: absolute;
-	top: 8px;
-	left: 16px;
-	font-size: 50px;
-	opacity: 0.5;
-}
-
-.txt2 {
-	padding-top: 5%;
-	position: absolute;
-	top: 8px;
-	left: 16px;
-	opacity: 0.5;
-	padding-left:20%;
-	font-size: 50px;
-	text-shadow: 2px 2px #a55233;
-	color: #fda403;
-}
-
-
-
-div.gallery img {
-	width: 70%;
-	height: 70%;
-	
-
-}
-
-* {
-	box-sizing: border-box;
-}
-
-.responsive {
-	padding: 0 6px;
-	float: left;
-	width: 24.99999%;
-}
-
-@media only screen and (max-width: 700px) {
-	.responsive {
-		width: 49.99999%;
-		margin: 6px 0;
-	}
-}
-
-@media only screen and (max-width: 500px) {
-	.responsive {
-		width: 100%;
-	}
-}
-
-.clearfix:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-
-/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
-@media screen and (max-width: 500px) {
-	.navbar a {
-		float: none;
-		display: inline-block;
-
-	}
-}
-
-@media screen and (max-width: 500px) {
-	.column {
-		justify-content: stretch;
-		float: initial;
-		display: inline-flex;
-		background-size: cover;
-		object-fit: fill;
-		overflow: auto;
-		max-width: 100%;
-		vertical-align: baseline;
-		box-sizing: content-box;
-
-	}
-}
 @import url("https://fonts.googleapis.com/css?family=Lato|Lora");
 html {
-  display: grid;
+  display: flex;
   min-height: 100%;
 }
 
+
+
+
 body {
   background: #252c32;
-  display: grid;
+  display: flex;
   font-family: "Lato", sans-serif;
   text-transform: uppercase;
 }
@@ -483,32 +251,76 @@ p {
   left: 83%;
 }
 
-footer {
+
+
+
+
+#bean {
+  width: 170px;
+  height: 250px;
+  background: rgba(106,62,19,1);
+  background: radial-gradient(circle, rgb(119, 83, 46) 0%, rgba(106,62,19,1) 100%);  
+  border-radius: 50%;
+  -webkit-box-shadow: 12px 8px 15px 0px rgba(0,0,0,0.44); 
+  box-shadow: 12px 10px 15px 0px rgba(0,0,0,0.33);
+} 
+
+svg { 
   position: absolute;
-  bottom: 0;
-  right: 0;
-  text-align: center;
-  font-size: 1em;
-  text-transform: uppercase;
-  padding: 10px;
-  color: #ea7996;
-}
-footer p {
-  text-transform: uppercase;
-  color: #dab7a3;
-  font-family: "Lato", sans-serif;
-  letter-spacing: 3px;
-}
-footer a {
-  font-family: "Lato", sans-serif;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-decoration: none;
-}
-footer a:hover {
-  color: #859fb5;
+  top: 29px;
+  left: -78px;
+  width: 300px; 
+  height: 330px; 
+  transform: rotate(36deg);
 }
 
+rect { 
+  fill: #000; 
+}
+
+path { 
+  fill: #fff; 
+}
+
+#static-base, #shadow-base {
+  fill: none;
+  stroke: rgb(68, 27, 0);
+	stroke-dasharray: 300;
+  stroke-linecap: round; 
+	stroke-width: 20;
+	mask: url(#mask);
+}
+
+#base {
+	fill: none;
+  stroke: antiquewhite;
+	stroke-dasharray: 300;
+  stroke-linecap: round;
+	stroke-width: 20;
+	mask: url(#mask);
+	animation: draw 4s ease-in-out infinite
+}
+
+#shadow-base {
+  fill: none;
+  stroke: #441b00;
+}
+
+@keyframes draw {
+	0% { stroke-dashoffset: -300; }
+  50% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 300; }
+  100% { stroke-dashoffset: -300; }
+}
+.main{
+	margin:2%;
+}
+button{
+	background-color: #dab7a3;
+	padding: 10px 24px;
+	
+	border-color: #dab7a3;
+}
 
 
 
