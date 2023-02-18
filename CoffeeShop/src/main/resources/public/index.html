@@ -8,13 +8,20 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="style.css">
-	<script type="text/javascript" src="js/coffee.js"></script>
+	<script type="text/javascript" src="script1.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+
+
+
+
+
+
 <body style="displey: flex">
-	<div class="main" style="width: 20%;">
+
+	<div class="main" id="main" style="width: 20%;">
 		<h1 style="  font-size: 60px;">Pablo & Friends</h1>
 		<div class="container">
 			<svg viewBox='0 0 200 300'>
@@ -45,17 +52,95 @@
 
 
 	</div>
+	<div class="column" style="margin-left: 7%;">
+		<div style="display: none; " id="cardPage">
+
+			<table class="rwd-table">
+				<th>Order Form:</th>
+				<tr>
+
+					<th>Coffee Name</th>
+					<th>Price</th>
+					<th>Quantity</th>
+				</tr>
+				<tr>
+					<td data-th="title">DOPPIO</td>
+					<td data-th="price">EUR 3.00</td>
+					<td data-th="quantity"><input type="number" id="qty1" value="0" placeholder="Enter Quantity" /></td>
+				</tr>
+				<tr>
+					<td data-th="title">AMERICANO</td>
+					<td data-th="price">EUR 2.00</td>
+					<td data-th="quantity"><input type="number" id="qty2" value="0" placeholder="Enter Quantity" /></td>
+				</tr>
+				<tr>
+					<td data-th="title">MACCHIATO</td>
+					<td data-th="price">EUR 4.50</td>
+					<td data-th="quantity"><input type="number" id="qty3" value="0" placeholder="Enter Quantity" /></td>
+				</tr>
+				<tr>
+					<td data-th="title">FLAT WHITE</td>
+					<td data-th="price">EUR 4.00</td>
+					<td data-th="quantity"><input type="number" id="qty4" value="0" placeholder="Enter Quantity" /></td>
+				</tr>
+				<tr>
+					<td data-th="title">CAPPUCCINO</td>
+					<td data-th="price">EUR 3.75</td>
+					<td data-th="quantity"><input type="number" id="qty5" value="0" placeholder="Enter Quantity" /></td>
+				</tr>
+				<tr>
+					<td data-th="title"> CAFFE LATTE
+					</td>
+					<td data-th="price">EUR 4.00</td>
+					<td data-th="quantity"><input type="number" id="qty6" value="0" placeholder="Enter Quantity" /></td>
+				</tr>
+				<td style="display: flex; flex-direction: column;">
+					<button onclick="total()" class="button" style="padding-left:48px;margin-left:40px;">Total
+						Cost</button>
+					<div class="result" id="total_cost">EUR 0.00 </div>
+				</td>
+			</table>
+
+
+			<div>
+				<table class="user">
+					<tr>
+						<td data-th="Name: ">Name:</td>
+						<td><input type="text" placeholder="Name" /></td>
+					</tr>
+					<tr>
+						<td data-th="Email: ">Email</td>
+						<td><input type="text" placeholder="Email..." /></td>
+					</tr>
+					<td>
+						<button onclick="submit()" class="button">Submit Order</button>
+					</td>
+				</table>
+
+
+			</div>
+
+
+			<div>
+
+			</div>
+
+
+
+
+		</div>
 
 	</div>
-	
-<button>ORDER NOW</button>
 
 
 
-	<div class="container">
 
+
+
+	<div class="container" id="container">
 		<div class="bar">
 			<div class="bold">
+
 				<h3>Bold</h3>
 			</div>
 			<div class="circle top"></div>
@@ -85,8 +170,12 @@
 				<div class="handle"></div>
 				<div class="bottom-handle"></div>
 			</div>
+
 		</div>
+
+
 		<div class="info">
+
 			<div class="first">
 				<h1>doppio</h1>
 				<p>Double shot of espresso. Straight.</p>
@@ -114,9 +203,13 @@
 
 		</div>
 	</div>
-	
+	<div class="key" id="key">
+		<button id="orderB" onClick="displayCard()">ORDER NOW</button>
+		<div>
+			<h5 style="  font-size: 40px;">What is your type?</h5>
 
-	<div class="key">
+		</div>
+
 		<div class="circle espresso">
 			<p class="small">espresso</p>
 		</div>
@@ -129,14 +222,8 @@
 		<div class="circle water">
 			<p class="small">water</p>
 		</div>
+
 	</div>
-
-
-
-
-
-
-
 </body>
 
 </html>
