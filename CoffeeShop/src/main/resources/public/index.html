@@ -3,21 +3,19 @@
 
 <head>
 	<title>Pablo & Friends</title>
+	<meta http-equiv="cache-control" content="no-cache">
 	<link rel="icon" type="image/x-icon" href="images/Coffee-1320568040449299331.svg">
-
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/modal.css">
+	<script src="js/jquery-3.4.1.js"></script>
 	<script type="text/javascript" src="script1.js"></script>
+	<script type="text/javascript" src="js/modal.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-
-
-
-
-
 
 <body style="displey: flex">
 
@@ -48,94 +46,54 @@
 
 		</div>
 
-
-
-
 	</div>
 	<div class="column" style="margin-left: 7%;">
-		<div style="display: none; " id="cardPage">
+		<div style="display: table; display:none; content: &#34;&#34;; clear:both;" id="cardPage">
+			<div style="float: left; width: 33.33%;">
+				<table class="rwd-table">
+					<thead>
+						<tr>
+							<td>Order Form:</td>
+						</tr>
+						<tr>
+							<td>Coffee Name</td>
+							<td>Price</td>
+							<td>Quantity</td>
+						</tr>
+					</thead>
+					<tbody id="order-table-body">
 
-			<table class="rwd-table">
-				<th>Order Form:</th>
-				<tr>
-
-					<th>Coffee Name</th>
-					<th>Price</th>
-					<th>Quantity</th>
-				</tr>
-				<tr>
-					<td data-th="title">DOPPIO</td>
-					<td data-th="price">EUR 3.00</td>
-					<td data-th="quantity"><input type="number" id="qty1" value="0" placeholder="Enter Quantity" /></td>
-				</tr>
-				<tr>
-					<td data-th="title">AMERICANO</td>
-					<td data-th="price">EUR 2.00</td>
-					<td data-th="quantity"><input type="number" id="qty2" value="0" placeholder="Enter Quantity" /></td>
-				</tr>
-				<tr>
-					<td data-th="title">MACCHIATO</td>
-					<td data-th="price">EUR 4.50</td>
-					<td data-th="quantity"><input type="number" id="qty3" value="0" placeholder="Enter Quantity" /></td>
-				</tr>
-				<tr>
-					<td data-th="title">FLAT WHITE</td>
-					<td data-th="price">EUR 4.00</td>
-					<td data-th="quantity"><input type="number" id="qty4" value="0" placeholder="Enter Quantity" /></td>
-				</tr>
-				<tr>
-					<td data-th="title">CAPPUCCINO</td>
-					<td data-th="price">EUR 3.75</td>
-					<td data-th="quantity"><input type="number" id="qty5" value="0" placeholder="Enter Quantity" /></td>
-				</tr>
-				<tr>
-					<td data-th="title"> CAFFE LATTE
-					</td>
-					<td data-th="price">EUR 4.00</td>
-					<td data-th="quantity"><input type="number" id="qty6" value="0" placeholder="Enter Quantity" /></td>
-				</tr>
-				<td style="display: flex; flex-direction: column;">
-					<button onclick="total()" class="button" style="padding-left:48px;margin-left:40px;">Total
-						Cost</button>
-					<div class="result" id="total_cost">EUR 0.00 </div>
-				</td>
-			</table>
-
-
-			<div>
+					</tbody>
+				</table>
+			</div>
+			<div style="float: left; width: 33.33%;">
 				<table class="user">
+					<tr style="display: flex; flex-direction: column;">
+						<td>
+							<button onclick="total()" class="button" style="padding-left:48px;margin-left:40px;">Total Cost</button>
+						</td>
+					</tr>
+					<tr>
+						<td class="result" id="total_cost">EUR 0.00 </td>
+					</tr>
 					<tr>
 						<td data-th="Name: ">Name:</td>
-						<td><input type="text" placeholder="Name" /></td>
+						<td><input type="text" placeholder="Name" id="customer-name"/></td>
 					</tr>
 					<tr>
 						<td data-th="Email: ">Email</td>
-						<td><input type="text" placeholder="Email..." /></td>
+						<td><input type="text" placeholder="Email..." id="customer-email"/></td>
 					</tr>
 					<td>
-						<button onclick="submit()" class="button">Submit Order</button>
+						<button onclick="submitOrder()" class="button">Submit Order</button>
 					</td>
 				</table>
-
-
 			</div>
-
-
-			<div>
-
+			<div style="width:33%; clear:both; padding-left:8%; margin-left:1%;">
+				<img src=" https://digitalforge.qa/images/codepen/coffee.png">
 			</div>
-
-
-
-
 		</div>
-
 	</div>
-
-
-
-
-
 
 	<div class="container" id="container">
 		<div class="bar">
@@ -223,6 +181,24 @@
 			<p class="small">water</p>
 		</div>
 
+	</div>
+
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close">&times;</span>
+				<h2>Success!</h2>
+			</div>
+			<div class="modal-body">
+				<p id="modal-body-text">Message is not shown</p>
+			</div>
+			<div class="modal-footer">
+				<h3>Pablo & Friends</h3>
+			</div>
+		</div>
 	</div>
 </body>
 

@@ -4,21 +4,27 @@ import java.util.List;
 
 public class OrderCreateRequest {
 
-    private String customer_name;
+    private String customerName;
 
-    private String customer_email;
+    private String customerEmail;
 
     private List<ProductQuantityRequest> productsWithQuantities;
 
     public OrderCreateRequest() {
     }
 
-    public String getCustomer_name() {
-        return customer_name;
+    public OrderCreateRequest(String customerName, String customerEmail, List<ProductQuantityRequest> productsWithQuantities) {
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.productsWithQuantities = productsWithQuantities;
     }
 
-    public String getCustomer_email() {
-        return customer_email;
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
     public List<ProductQuantityRequest> getProductsWithQuantities() {

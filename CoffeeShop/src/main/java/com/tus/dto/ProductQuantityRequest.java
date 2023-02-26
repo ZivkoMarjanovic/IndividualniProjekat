@@ -10,6 +10,11 @@ public class ProductQuantityRequest {
     public ProductQuantityRequest() {
     }
 
+    public ProductQuantityRequest(String productName, int quantity) {
+        this.productName = productName;
+        this.quantity = quantity;
+    }
+
     public String getProductName() {
         return productName;
     }

@@ -394,7 +394,7 @@ Website: WWW.ADNANQAISER.COM
     font-family: Montserrat, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    background-image: url(https://digitalforge.qa/images/codepen/coffee.png), url(https://digitalforge.qa/images/codepen/bg.png);
+    background-image: url(https://digitalforge.qa/images/codepen/bg.png);
     background-position: right center, left top;
     background-color: #eeeeee;
     background-repeat: no-repeat, repeat;
