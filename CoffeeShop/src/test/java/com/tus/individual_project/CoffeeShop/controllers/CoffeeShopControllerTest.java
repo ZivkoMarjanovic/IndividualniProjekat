@@ -51,10 +51,18 @@ public class CoffeeShopControllerTest {
     }
 
     @Test
-    void createOrderSuccess() {
+    void getActiveProductsSuccess() {
         when(productRepository.findActive()).thenReturn(products);
         ResponseEntity<List<Product>> response = coffeeShopController.getActiveProducts();
         assertEquals(response.getBody().size(), 2);
+        verify(productRepository, times(1)).findActive();
+    }
+
+    @Test
+    void getActiveProductsDBError() {
+        when(productRepository.findActive()).thenThrow();
+        ResponseEntity<List<Product>> response = coffeeShopController.getActiveProducts();
+        assertEquals(500, response.getStatusCode().value());
         verify(productRepository, times(1)).findActive();
     }
 }
