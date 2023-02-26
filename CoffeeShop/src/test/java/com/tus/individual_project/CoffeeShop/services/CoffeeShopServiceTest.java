@@ -1,4 +1,4 @@
-package com.tus.individual_project.CoffeeShop;
+package com.tus.individual_project.CoffeeShop.services;
 
 import com.tus.dto.OrderCreateRequest;
 import com.tus.dto.ProductQuantityRequest;
@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
@@ -50,8 +50,6 @@ public class CoffeeShopServiceTest {
 
     private OrderCreateRequest orderCreateRequest;
 
-
-
     @BeforeEach
     void setUp() throws ParseException {
         Product late = new Product("Late", "Coffe with lot of milk", 3.6, true);
@@ -67,7 +65,23 @@ public class CoffeeShopServiceTest {
     @Test
     void createOrderSuccess() {
         orderCreateRequest = new OrderCreateRequest("Alex", "alex@email.com", productsWithQuantities);
+        Order order = new Order();
+        order.setId(1);
         when(productRepository.findActive()).thenReturn(products);
-//        assertDoesNotThrow(coffeeShopService.createOrder(orderCreateRequest));
+        when(orderRepository.save(any())).thenReturn(order);
+        coffeeShopService.createOrder(orderCreateRequest);
+        verify(orderRepository, times(1)).save(any());
+    }
+
+    @Test
+    void createOrderNegativeQuantity() {
+        productsWithQuantities.add(new ProductQuantityRequest("Late", -1));
+        orderCreateRequest = new OrderCreateRequest("Alex", "alex@email.com", productsWithQuantities);
+        Order order = new Order();
+        order.setId(1);
+        when(productRepository.findActive()).thenReturn(products);
+        when(orderRepository.save(any())).thenReturn(order);
+        assertThrows(RuntimeException.class, () -> coffeeShopService.createOrder(orderCreateRequest),
+                "Expected to throw exception when quantity is less then 0, but it didn't");
     }
 }

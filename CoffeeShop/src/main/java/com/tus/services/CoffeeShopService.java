@@ -30,6 +30,10 @@ public class CoffeeShopService {
         for (ProductQuantityRequest productQuantity : productQuantityRequests) {
             String productName = productQuantity.getProductName();
             Product currentProduct = productsMap.get(productName);
+            if (productQuantity.getQuantity() < 0) {
+                System.out.println("Quantity can not have negative value.");
+                throw new RuntimeException("Quantity can not have negative value.");
+            }
             total = total + productQuantity.getQuantity() * currentProduct.getPrice();
         }
         System.out.println("Alex order total: " + total);

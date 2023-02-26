@@ -44,7 +44,7 @@ public class CoffeeShopController {
             coffeeShopService.createOrder(orderRequest);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception exception) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
         }
     }
 

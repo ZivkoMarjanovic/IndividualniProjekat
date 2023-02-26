@@ -95,11 +95,13 @@ function roundTo(n, digits) {
 
   function submitOrder() {
     console.log("ALEX Start Order submit.");
+    let orderData = orderFormToJSON();
+    console.log("ALEX Order Request: " + JSON.stringify(orderData));
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
 		url: '/order',
-		data: orderFormToJSON(),
+		data: orderData,
 		success: function() {
 		    var modalBodyText = document.getElementById("modal-body-text");
 		    modalBodyText.innerHTML = "Order is on the way! Please pick it up in 10 minutes.";
