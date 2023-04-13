@@ -3,6 +3,7 @@
   padding: 2px 16px;
   background-color: #34495E;
   color: white;
+  font-size: 30px;
 }
 
 /* Modal Body */
@@ -62,6 +63,14 @@
 
 /* The Close Button */
 .close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* The Close Button */
+.closee {
   color: white;
   float: right;
   font-size: 28px;

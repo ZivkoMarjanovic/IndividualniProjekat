@@ -1,5 +1,6 @@
 package com.tus.individual.project.controlers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import com.tus.individual.project.dto.OrderCreateRequest;
 import com.tus.individual.project.dto.OrderDto;
 import com.tus.individual.project.dto.ProductQuantityRequest;
@@ -36,6 +37,7 @@ public class ServiceSideController {
     }
 
     @GetMapping("/orders")
+    @PreAuthorize("hasRole('COFFEE_MAKER')")
     public List<OrderDto> getAllOrders() {
         List<Order> orders = orderRepository.findAll();
         List<OrderDto> ordersDto = new ArrayList<>();

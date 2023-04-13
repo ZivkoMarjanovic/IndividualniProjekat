@@ -4,22 +4,26 @@
 <head>
 	<title>Pablo & Friends</title>
 	<meta http-equiv="cache-control" content="no-cache">
+	<script src="js/jquery-3.4.1.js"></script>
 	<link rel="icon" type="image/x-icon" href="images/Coffee-1320568040449299331.svg">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/modal.css">
-	<script src="js/jquery-3.4.1.js"></script>
+	<link rel="stylesheet" href="css/payment.css">
 	<script type="text/javascript" src="script1.js"></script>
 	<script type="text/javascript" src="js/modal.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>input{color:black;}</style>
 
 </head>
 
-<body style="displey: flex">
+<body style="displey: block;margin: 0px; width:100%;">
 
-	<div class="main" id="main" style="width: 20%;">
+	<div class="main" id="main">
 		<h1 style="  font-size: 60px;">Pablo & Friends</h1>
 		<div class="container">
 			<svg viewBox='0 0 200 300'>
@@ -45,15 +49,39 @@
 			</div>
 
 		</div>
-
 	</div>
-	<div class="column" style="margin-left: 7%;">
-		<div style="display: table; display:none; content: &#34;&#34;; clear:both;" id="cardPage">
-			<div style="float: left; width: 33.33%;">
-				<table class="rwd-table">
+
+	<div class="column" style="display:none; margin-right: 0%; content: &#34;&#34;; clear:both;" id="cardPage">
+		<div style="display:flex;">
+			<div style="float: left;" id="leftDiv">
+				<div style="display:flex; justify-content: space-between; background-color: #34495E;">
+					<div  id="backArrow">
+						<button onclick="back()" class="button">
+							<span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true">  Back</span>
+
+						</button>
+					</div>
+					<div id="orderNumber" style="display:none;">
+						<p class="button" id="orderNumberText" style="padding-left: 5px; margin-left: 5px; padding-right: 5px; margin-right: 5px;">Order Number</p>
+					</div>
+				</div>
+				<table class="rwd-table" id="coffeeListTable">
 					<thead>
 						<tr>
-							<td>Order Form:</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td data-th="Name: ">Name:</td>
+							<td><input type="text" placeholder="Name" id="customer-name"/></td>
+						</tr>
+						<tr>
+							<td data-th="Email: ">Email</td>
+							<td><input type="text" placeholder="Email..." id="customer-email"/></td>
+						</tr>
+						<tr>
+							<td ></td>
+							<td><p></p></td>
 						</tr>
 						<tr>
 							<td>Coffee Name</td>
@@ -62,34 +90,69 @@
 						</tr>
 					</thead>
 					<tbody id="order-table-body">
-
 					</tbody>
+					<tfoot>
+						<tr>
+							<td ></td>
+							<td><p></p></td>
+						</tr>
+					</tfoot>
 				</table>
+				<div style="display:flex; justify-content: space-between; background-color: #34495E;">
+					<div  id="confirmChoice">
+						<button id="confirmChoiceButton" onclick="submitOrder()" class="button" style="padding-bottom: 30%;" >Confirm your choice</button>
+					</div>
+					<div id="totalCost" style="display:none;">
+						<p class="button" style="padding-left:48px;margin-left:40px;">Total Cost</p>
+						<p class="result" id="total_cost" style="margin-bottom: 20px;">EUR 0.00 </p>
+					</div>
+					<div id="updateOrder" style="display:none;">
+						<button onclick="updateOrder()" class="button" style="padding-bottom: 30%;" >Update Order</button>
+					</div>
+					<div id="payOrder" style="display:none;">
+						<button id="goToPayOrderButton" onclick="goToPayOrder()" class="button" style="padding-bottom: 30%;" >Pay Order</button>
+					</div>
+					<div id="deleteOrder" style="display:none;">
+						<button onclick="deleteOrder()" class="button" style="padding-bottom: 30%;" >Delete Order</button>
+					</div>
+				</div>
 			</div>
-			<div style="float: left; width: 33.33%;">
-				<table class="user">
-					<tr style="display: flex; flex-direction: column;">
-						<td>
-							<button onclick="total()" class="button" style="padding-left:48px;margin-left:40px;">Total Cost</button>
-						</td>
-					</tr>
-					<tr>
-						<td class="result" id="total_cost">EUR 0.00 </td>
-					</tr>
-					<tr>
-						<td data-th="Name: ">Name:</td>
-						<td><input type="text" placeholder="Name" id="customer-name"/></td>
-					</tr>
-					<tr>
-						<td data-th="Email: ">Email</td>
-						<td><input type="text" placeholder="Email..." id="customer-email"/></td>
-					</tr>
-					<td>
-						<button onclick="submitOrder()" class="button">Submit Order</button>
-					</td>
-				</table>
+			<div style="float: left; display: none;" id="paymentDiv">
+
+				<div class="containerPayment">
+					<div class="col-50">
+						<h3>Payment</h3>
+						<label >Accepted Cards</label>
+						<div class="icon-container">
+							<i class="fa fa-cc-visa" style="color:navy;"></i>
+							<i class="fa fa-cc-amex" style="color:blue;"></i>
+							<i class="fa fa-cc-mastercard" style="color:red;"></i>
+							<i class="fa fa-cc-discover" style="color:orange;"></i>
+						</div>
+						<label for="cname">Name on Card</label>
+						<input type="text" id="cname" name="cardname" placeholder="John More Doe">
+						<label for="ccnum">Credit card number</label>
+						<input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+						<label for="expmonth">Exp Month</label>
+						<input type="text" id="expmonth" name="expmonth" placeholder="September">
+
+						<div class="rowPayment">
+							<div class="col-50">
+								<label for="expyear">Exp Year</label>
+								<input type="text" id="expyear" name="expyear" placeholder="2018">
+							</div>
+							<div class="col-50">
+								<label for="cvv">CVV</label>
+								<input type="text" id="cvv" name="cvv" placeholder="352">
+							</div>
+							<div class="col-50">
+								<button id="payOrderButton" onclick="payOrder()" class="button">Pay Order</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div style="width:33%; clear:both; padding-left:8%; margin-left:1%;">
+			<div style="clear:both;">
 				<img src=" https://digitalforge.qa/images/codepen/coffee.png">
 			</div>
 		</div>
@@ -163,6 +226,10 @@
 	</div>
 	<div class="key" id="key">
 		<button id="orderB" onClick="displayCard()">ORDER NOW</button>
+		<br>
+		<br>
+		<br>
+		<button id="orderU" onClick="findYourOrder()">FIND YOUR ORDER</button>
 		<div>
 			<h5 style="  font-size: 40px;">What is your type?</h5>
 
@@ -190,10 +257,34 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<span class="close">&times;</span>
-				<h2>Success!</h2>
+				<p id="modal-header-text">Success!</p>
 			</div>
-			<div class="modal-body">
-				<p id="modal-body-text">Message is not shown</p>
+			<div class="modal-body" style="height:100px;">
+				<p id="modal-body-text" style="display:contents;">Message is not shown</p>
+			</div>
+			<div class="modal-footer">
+				<h3>Pablo & Friends</h3>
+			</div>
+		</div>
+	</div>
+
+	<!-- The Modal -->
+	<div id="findModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="closee">&times;</span>
+				<p id="find-modal-header-text">Success!</p>
+			</div>
+			<div class="modal-body" style="height:100px;">
+				<div style="display:flex; justify-content: space-between; background-color: #34495E;">
+					<div  id="orderToFindInputDiv">
+						<input type="text" class="button" placeholder="Enter your order number" id="searchOrder">
+					</div>
+					<div id="orderToFindButtonDiv">
+						<button class="button" onClick="searchYourOrder()" id="orderToFindButton" style="padding-left: 5px; margin-left: 5px; padding-right: 5px; margin-right: 5px;">FIND</button>
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<h3>Pablo & Friends</h3>

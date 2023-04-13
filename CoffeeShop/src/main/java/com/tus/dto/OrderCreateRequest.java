@@ -10,13 +10,16 @@ public class OrderCreateRequest {
 
     private List<ProductQuantityRequest> productsWithQuantities;
 
+    private boolean paid;
+
     public OrderCreateRequest() {
     }
 
-    public OrderCreateRequest(String customerName, String customerEmail, List<ProductQuantityRequest> productsWithQuantities) {
+    public OrderCreateRequest(String customerName, String customerEmail, List<ProductQuantityRequest> productsWithQuantities, boolean paid) {
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.productsWithQuantities = productsWithQuantities;
+        this.paid = paid;
     }
 
     public String getCustomerName() {
@@ -29,5 +32,9 @@ public class OrderCreateRequest {
 
     public List<ProductQuantityRequest> getProductsWithQuantities() {
         return productsWithQuantities;
+    }
+
+    public boolean isPaid() {
+        return paid;
     }
 }

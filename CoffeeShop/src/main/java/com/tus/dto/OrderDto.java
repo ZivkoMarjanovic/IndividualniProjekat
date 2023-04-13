@@ -6,83 +6,66 @@ import java.util.List;
 
 public class OrderDto {
 
-    private double order_total;
+    private long orderId;
 
-    private String customer_name;
+    private double orderTotal;
 
-    private String customer_email;
+    private String customerName;
+
+    private String customerEmail;
 
     private boolean paid;
 
-    private Date created;
+    private List<ProductQuantityRequest> productQuantityRequests;
 
-    private Date finished;
-
-    private List<ProductQuantity> productsWithQuantities;
-
-    public OrderDto(double order_total, String customer_name, String customer_email, boolean paid, Date created, Date finished, List<ProductQuantity> productsWithQuantities) {
-        this.order_total = order_total;
-        this.customer_name = customer_name;
-        this.customer_email = customer_email;
-        this.paid = paid;
-        this.created = created;
-        this.finished = finished;
-        this.productsWithQuantities = productsWithQuantities;
+    public OrderDto() {
     }
 
-    public double getOrder_total() {
-        return order_total;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
-    public void setOrder_total(double order_total) {
-        this.order_total = order_total;
+    public void setOrderTotal(double orderTotal) {
+        this.orderTotal = orderTotal;
     }
 
-    public String getCustomer_name() {
-        return customer_name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public void setCustomer_name(String customer_name) {
-        this.customer_name = customer_name;
-    }
-
-    public String getCustomer_email() {
-        return customer_email;
-    }
-
-    public void setCustomer_email(String customer_email) {
-        this.customer_email = customer_email;
-    }
-
-    public boolean isPaid() {
-        return paid;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     public void setPaid(boolean paid) {
         this.paid = paid;
     }
 
-    public Date getCreated() {
-        return created;
+    public void setProductQuantityRequests(List<ProductQuantityRequest> productQuantityRequests) {
+        this.productQuantityRequests = productQuantityRequests;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public long getOrderId() {
+        return orderId;
     }
 
-    public Date getFinished() {
-        return finished;
+    public double getOrderTotal() {
+        return orderTotal;
     }
 
-    public void setFinished(Date finished) {
-        this.finished = finished;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public List<ProductQuantity> getProductsWithQuantities() {
-        return productsWithQuantities;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setProductsWithQuantities(List<ProductQuantity> productsWithQuantities) {
-        this.productsWithQuantities = productsWithQuantities;
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public List<ProductQuantityRequest> getProductQuantityRequests() {
+        return productQuantityRequests;
     }
 }

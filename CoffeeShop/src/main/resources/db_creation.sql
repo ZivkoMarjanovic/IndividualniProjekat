@@ -51,11 +51,18 @@ CREATE TABLE IF NOT EXISTS `product_quantity` (
 
 
 USE coffee_shop;
-INSERT INTO coffee_shop.product(product_name, description, product_price, is_active) VALUES('latte', 'Sweet coffee with lot of milk.', 4.10, true);
 
-INSERT INTO coffee_shop.product(product_name, description, product_price, is_active) VALUES('capuchino', 'Standard coffee with milk.', 3.80, true);
+INSERT INTO coffee_shop.product(product_name, description, product_price, is_active) VALUES('DOPPIO', 'Double shot of espresso. Straight.', 4.00, true);
 
-INSERT INTO coffee_shop.product(product_name, description, product_price, is_active) VALUES('test', 'Standard coffee with milk.', 3.80, false);
+INSERT INTO coffee_shop.product(product_name, description, product_price, is_active) VALUES('AMERICANO', 'Shots of espresso diluted with water', 2.80, true);
+
+INSERT INTO coffee_shop.product(product_name, description, product_price, is_active) VALUES('MACCHIATO', 'Espresso with a dash of frothy foamed milk.', 3.00, true);
+
+INSERT INTO coffee_shop.product(product_name, description, product_price, is_active) VALUES('FLAT WHITE', 'Double shot of espresso with steamed milk.', 4.10, true);
+
+INSERT INTO coffee_shop.product(product_name, description, product_price, is_active) VALUES('CAPPUCCINO', 'Double shot of espresso topped with an airy thick layer of foamed milk.', 3.80, true);
+
+INSERT INTO coffee_shop.product(product_name, description, product_price, is_active) VALUES('CAFFE LATTE', 'A shot of espresso in steamed milk lightly topped with foam.', 3.20, true);
 
 select * from product;
 

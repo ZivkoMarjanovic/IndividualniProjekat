@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pablo & Friends</title>
+    <meta http-equiv="cache-control" content="no-cache">
+    <script src="js/jquery-3.4.1.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<h1>Coffee Shop</h1>
+
+<div id="login">
+    <p>Login page</p>
+    <p>Name: <input type="text" value="Ada" id="name" /></p>
+    <p>Password: <input type="password" id="password" /></p>
+    <p><button type="button" onclick="login()">Login</button></p>
+</div>
+
+<div id="content" style="display:none">
+    <p>UserName:</p>
+    <input type="text" id="username">
+    <br>
+    <p>Email:</p>
+    <input id="email">
+    <br>
+    <p>Password:</p>
+    <input id="user-password">
+    <br>
+    <p>Role:</p>
+    <input id="role">
+    <br>
+    <p><button type="button" onclick="createUser()">Create User</button></p>
+    <br>
+    <br>
+    <p><button type="button" onclick="deleteUser()">Delete User</button></p>
+    <br>
+    <br>
+    <p><button type="button" onclick="updateUser()">Update User</button></p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p><button type="button" onclick="getOrders()">Get Orders</button></p>
+</div>
+
+</body>
+</html>

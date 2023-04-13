@@ -40,7 +40,17 @@ public class CoffeeShopControllerTest {
     @MockBean
     ProductRepository productRepository;
 
+    @MockBean
+    OrderRepository orderRepository;
+
+    @MockBean
+    private CoffeeShopService coffeeShopService;
+
     private List<Product> products = new ArrayList<>();
+
+    private List<ProductQuantityRequest> productsWithQuantities = new ArrayList<>();
+
+    private OrderCreateRequest orderCreateRequest;
 
     @BeforeEach
     void setUp() {
@@ -48,6 +58,10 @@ public class CoffeeShopControllerTest {
         Product cappuccino = new Product("Cappuccino", "Regular Coffe with milk", 3.8, true);
         products.add(late);
         products.add(cappuccino);
+        ProductQuantityRequest oneLate = new ProductQuantityRequest("Late", 1);
+        ProductQuantityRequest oneCappuccino = new ProductQuantityRequest("Cappuccino", 1);
+        productsWithQuantities.add(oneLate);
+        productsWithQuantities.add(oneCappuccino);
     }
 
     @Test

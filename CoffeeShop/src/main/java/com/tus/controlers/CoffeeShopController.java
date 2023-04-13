@@ -1,21 +1,13 @@
 package com.tus.controlers;
 
 import com.tus.dto.OrderCreateRequest;
-import com.tus.dto.OrderDto;
-import com.tus.dto.ProductQuantityRequest;
-import com.tus.model.Order;
 import com.tus.model.Product;
-import com.tus.model.ProductQuantity;
-import com.tus.repository.OrderRepository;
 import com.tus.repository.ProductRepository;
 import com.tus.services.CoffeeShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -28,6 +20,43 @@ public class CoffeeShopController {
     @Autowired
     private CoffeeShopService coffeeShopService;
 
+    @PostMapping("/order")
+    public ResponseEntity orderCreate(@RequestBody OrderCreateRequest orderRequest) {
+        try {
+            return coffeeShopService.createOrder(orderRequest);
+        } catch (Exception exception) {
+            System.out.println("ALEX exception: " + Arrays.toString(exception.getStackTrace()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity orderGetById(@PathVariable long orderId) {
+        try {
+            return coffeeShopService.getOrderById(orderId);
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+    }
+
+    @PutMapping("/order/{orderId}")
+    public ResponseEntity orderUpdate(@PathVariable long orderId, @RequestBody OrderCreateRequest orderRequest) {
+        try {
+            return coffeeShopService.updateOrder(orderRequest, orderId);
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+    }
+
+    @DeleteMapping("/order/{orderId}")
+    public ResponseEntity orderDelete(@PathVariable long orderId) {
+        try {
+            return coffeeShopService.deleteOrder(orderId);
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+    }
+
     @GetMapping("/products/active")
     public ResponseEntity<List<Product>> getActiveProducts() {
         try {
@@ -35,16 +64,6 @@ public class CoffeeShopController {
             return ResponseEntity.status(HttpStatus.OK).body(products);
         } catch (Exception exception) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @PostMapping("/order")
-    public ResponseEntity order(@RequestBody OrderCreateRequest orderRequest) {
-        try {
-            coffeeShopService.createOrder(orderRequest);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception exception) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
         }
     }
 
