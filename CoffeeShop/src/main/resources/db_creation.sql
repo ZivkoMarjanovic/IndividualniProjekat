@@ -79,3 +79,22 @@ select * from product_quantity;
 delete from product_quantity;
 delete from coffee_order;
 delete from product;
+
+
+INSERT INTO coffee_shop.roles(name) VALUES('ROLE_COFFEE_MAKER');
+INSERT INTO coffee_shop.roles(name) VALUES('ROLE_MANAGER');
+
+INSERT INTO coffee_shop.users(id, email, password, username) VALUES(1, 'alex@gmail.com', '$2a$10$vKlr9lx8fi3USQsZgZbd/O3F.fq0cTrYyYJwIjj/OddpW9fjww8VG', 'alex');
+INSERT INTO coffee_shop.users(id, email, password, username) VALUES(2, 'vidak@gmail.com', '$2a$10$SSmBPaqEMxHJK30XOvs/NeKCLGY51xK.cZgFt6d1KdDSAbCkah4o.', 'vidak');
+
+INSERT INTO coffee_shop.user_roles (user_id, role_id) VALUES((SELECT id FROM coffee_shop.users where username='alex'), (select id from coffee_shop.roles where name='ROLE_COFFEE_MAKER'));
+INSERT INTO coffee_shop.user_roles (user_id, role_id) VALUES((SELECT id FROM coffee_shop.users where username='vidak'), (select id from coffee_shop.roles where name='ROLE_MANAGER'));
+
+
+SELECT * FROM coffee_shop.users;
+select * from coffee_shop.roles;
+select * from coffee_shop.user_roles;
+
+DELETE FROM coffee_shop.users;
+DELETE from coffee_shop.roles;
+DELETE from coffee_shop.user_roles;
