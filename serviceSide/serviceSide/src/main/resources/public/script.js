@@ -76,6 +76,26 @@ function createUser() {
 
 }
 
+function getUser() {
+    const username = document.getElementById ("username").value;
+    const email = document.getElementById ("email").value;
+     $.ajax({
+            url: 'http://localhost:8083/user/' + username + "/" + email,
+            type: 'GET',
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            success: function (result) {
+                console.log("Successfully GET USER " + result.username);
+            },
+            error: function (xhr, status, error) {
+                console.log("Something went wrong.");
+            }
+        });
+
+}
+
 function deleteUser() {
     const username = document.getElementById ("username").value;
     const email = document.getElementById ("email").value;
@@ -88,6 +108,35 @@ function deleteUser() {
             },
             success: function (result) {
                 console.log("Successfully deleted");
+            },
+            error: function (xhr, status, error) {
+                console.log("Something went wrong.");
+            }
+        });
+
+}
+
+function updateUser() {
+    const username = document.getElementById ("username").value;
+    const email = document.getElementById ("email").value;
+    const password = document.getElementById ("user-password").value;
+    const role = document.getElementById ("role").value;
+    const request = {
+        "username": username,
+        "email": email,
+        "password": password,
+        "role": [role]
+    }
+     $.ajax({
+            url: 'http://localhost:8083/user/',
+            type: 'PUT',
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+		    data: JSON.stringify(request),
+            success: function (result) {
+                console.log("Successfully updated");
             },
             error: function (xhr, status, error) {
                 console.log("Something went wrong.");

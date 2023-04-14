@@ -2,6 +2,7 @@ package com.tus.individual.project.controlers;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -68,60 +69,130 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error: Username is already taken!");
+        try {
+            if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body("Error: Username is already taken!");
+            }
+
+            if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body("Error: Email is already in use!");
+            }
+
+            String encodedPassword = encoder.encode(signUpRequest.getPassword());
+            System.out.println("Aleks for username: " + signUpRequest.getUsername() + "  password is: " + encodedPassword);
+            // Create new user's account
+            User user = new User(signUpRequest.getUsername(),
+                    signUpRequest.getEmail(),
+                    encoder.encode(signUpRequest.getPassword()));
+
+            Set<String> strRoles = signUpRequest.getRole();
+            Set<Role> roles = new HashSet<>();
+
+            if (strRoles == null) {
+                Role userRole = roleRepository.findByName(ERole.ROLE_COFFEE_MAKER)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                roles.add(userRole);
+            } else {
+                strRoles.forEach(role -> {
+                    switch (role) {
+                        case "MANAGER":
+                            Role adminRole = roleRepository.findByName(ERole.ROLE_MANAGER)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                            roles.add(adminRole);
+
+                            break;
+                        default:
+                            Role userRole = roleRepository.findByName(ERole.ROLE_COFFEE_MAKER)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                            roles.add(userRole);
+                    }
+                });
+            }
+
+            user.setRoles(roles);
+            userRepository.save(user);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
         }
+    }
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error: Email is already in use!");
+    @PutMapping("/user")
+    public ResponseEntity<?> updateUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        try {
+            Optional<User> currentUser = userRepository.findByUsernameAndEmail(signUpRequest.getUsername(), signUpRequest.getEmail());
+            if (currentUser.isEmpty()) {
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
+
+            // Create new user's account
+            User user = new User(signUpRequest.getUsername(),
+                    signUpRequest.getEmail(),
+                    encoder.encode(signUpRequest.getPassword()));
+            user.setId(currentUser.get().getId());
+
+            Set<String> strRoles = signUpRequest.getRole();
+            Set<Role> roles = new HashSet<>();
+
+            if (strRoles == null) {
+                Role userRole = roleRepository.findByName(ERole.ROLE_COFFEE_MAKER)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                roles.add(userRole);
+            } else {
+                strRoles.forEach(role -> {
+                    switch (role) {
+                        case "MANAGER":
+                            Role adminRole = roleRepository.findByName(ERole.ROLE_MANAGER)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                            roles.add(adminRole);
+
+                            break;
+                        default:
+                            Role userRole = roleRepository.findByName(ERole.ROLE_COFFEE_MAKER)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                            roles.add(userRole);
+                    }
+                });
+            }
+
+            user.setRoles(roles);
+            userRepository.save(user);
+
+            return ResponseEntity.status(HttpStatus.OK).body("User updated successfully!");
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
         }
-
-        String encodedPassword = encoder.encode(signUpRequest.getPassword());
-        System.out.println("Aleks for username: " + signUpRequest.getUsername() + "  password is: " + encodedPassword);
-        // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
-
-        Set<String> strRoles = signUpRequest.getRole();
-        Set<Role> roles = new HashSet<>();
-
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_COFFEE_MAKER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "MANAGER":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_MANAGER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_COFFEE_MAKER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }
-
-        user.setRoles(roles);
-        userRepository.save(user);
-
-        return ResponseEntity.ok("User registered successfully!");
     }
 
     @DeleteMapping("/user/{username}/{email}")
     public ResponseEntity<?> registerUser(@PathVariable String username, @PathVariable String email) {
         try {
+            Optional<User> user = userRepository.findByUsernameAndEmail(username, email);
+            if (user.isEmpty()) {
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
             userRepository.deleteByUsernameAndEmail(username, email);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception exception) {
+            System.out.println("Something wrong: " + exception);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+
+    }
+
+    @GetMapping("/user/{username}/{email}")
+    public ResponseEntity<?> getUser(@PathVariable String username, @PathVariable String email) {
+        try {
+            Optional<User> user = userRepository.findByUsernameAndEmail(username, email);
+            if (user.isEmpty()) {
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
         } catch (Exception exception) {
             System.out.println("Something wrong: " + exception);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());

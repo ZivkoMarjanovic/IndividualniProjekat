@@ -188,7 +188,7 @@ public class CoffeeShopService {
     public ResponseEntity deleteOrder(long orderId) {
         Optional<Order> optionalOrder =  orderRepository.findById(orderId);
         if (optionalOrder.isEmpty()) {
-            return new ResponseEntity<>("Order to be updated, not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Order to be deleted, not found", HttpStatus.NOT_FOUND);
         }
         Order orderToDelete = optionalOrder.get();
 
