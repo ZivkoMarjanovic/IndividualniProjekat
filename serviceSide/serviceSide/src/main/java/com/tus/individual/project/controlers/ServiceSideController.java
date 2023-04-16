@@ -32,13 +32,11 @@ public class ServiceSideController {
     private OrderRepository orderRepository;
 
     @GetMapping("/products/active")
-    @PreAuthorize("hasAnyRole('COFFEE_MAKER', 'MANAGER')")
     public List<Product> getActiveProducts() {
         return productRepository.findActive();
     }
 
     @GetMapping("/products/all")
-    @PreAuthorize("hasAnyRole('COFFEE_MAKER', 'MANAGER')")
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
@@ -55,8 +53,7 @@ public class ServiceSideController {
     }
 
     @GetMapping("/order/{id}")
-    @PreAuthorize("hasAnyRole('COFFEE_MAKER', 'MANAGER')")
-    public ResponseEntity<?> getOrderById(@PathVariable long id) {
+    public ResponseEntity<?> getUser(@PathVariable long id) {
         try {
             Optional<Order> myOrder = orderRepository.findById(id);
             if (myOrder.isEmpty()) {
@@ -73,7 +70,6 @@ public class ServiceSideController {
     }
 
     @PutMapping("/order/{orderId}/{status}")
-    @PreAuthorize("hasAnyRole('COFFEE_MAKER', 'MANAGER')")
     public ResponseEntity orderUpdate(@PathVariable long orderId, @PathVariable String status) {
         try {
             Optional<Order> myOrder = orderRepository.findById(orderId);
