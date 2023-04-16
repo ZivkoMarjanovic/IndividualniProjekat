@@ -32,11 +32,13 @@ public class ServiceSideController {
     private OrderRepository orderRepository;
 
     @GetMapping("/products/active")
+    @PreAuthorize("hasAnyRole('COFFEE_MAKER', 'MANAGER')")
     public List<Product> getActiveProducts() {
         return productRepository.findActive();
     }
 
     @GetMapping("/products/all")
+    @PreAuthorize("hasAnyRole('COFFEE_MAKER', 'MANAGER')")
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
@@ -53,7 +55,8 @@ public class ServiceSideController {
     }
 
     @GetMapping("/order/{id}")
-    public ResponseEntity<?> getUser(@PathVariable long id) {
+    @PreAuthorize("hasAnyRole('COFFEE_MAKER', 'MANAGER')")
+    public ResponseEntity<?> getOrderById(@PathVariable long id) {
         try {
             Optional<Order> myOrder = orderRepository.findById(id);
             if (myOrder.isEmpty()) {
@@ -70,6 +73,7 @@ public class ServiceSideController {
     }
 
     @PutMapping("/order/{orderId}/{status}")
+    @PreAuthorize("hasAnyRole('COFFEE_MAKER', 'MANAGER')")
     public ResponseEntity orderUpdate(@PathVariable long orderId, @PathVariable String status) {
         try {
             Optional<Order> myOrder = orderRepository.findById(orderId);
@@ -85,31 +89,31 @@ public class ServiceSideController {
         }
     }
 
-	@GetMapping("/orders/week")
-	@PreAuthorize("hasAnyRole('MANAGER')")
-	public List<OrderSaleDto> getWeeklyStats() {
-		List <OrderSaleDto> orderSaleDtos = new ArrayList<>();
-		try {
-			Calendar today = Calendar.getInstance();
-			today.set(Calendar.HOUR_OF_DAY, 0);
-			today.set(Calendar.MINUTE, 0);
-			today.set(Calendar.SECOND, 0);
-			today.add(Calendar.DATE, -7);
-			
-			Date currentDate = today.getTime();
-			List <Tuple> result = orderRepository.getWeeklyReport(currentDate);
-			result.forEach(row ->{
-				String total = row.get("total").toString();
-				String number  = row.get("number").toString();
-				String day  = row.get("day").toString();
-				OrderSaleDto newOrderSaleDto = new OrderSaleDto(total, number, day);
-				orderSaleDtos.add(newOrderSaleDto);
-			});
-			return orderSaleDtos;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+    @GetMapping("/orders/week")
+    @PreAuthorize("hasAnyRole('MANAGER')")
+    public List<OrderSaleDto> getWeeklyStats() {
+        List <OrderSaleDto> orderSaleDtos = new ArrayList<>();
+        try {
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.add(Calendar.DATE, -7);
 
-	}
+            Date currentDate = today.getTime();
+            List <Tuple> result = orderRepository.getWeeklyReport(currentDate);
+            result.forEach(row ->{
+                String total = row.get("total").toString();
+                String number  = row.get("number").toString();
+                String day  = row.get("day").toString();
+                OrderSaleDto newOrderSaleDto = new OrderSaleDto(total, number, day);
+                orderSaleDtos.add(newOrderSaleDto);
+            });
+            return orderSaleDtos;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }
