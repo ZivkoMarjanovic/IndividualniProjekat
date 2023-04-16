@@ -21,6 +21,13 @@ public class Product {
 	public Product() {
 	}
 
+	public Product(String product_name, String description, double price, boolean isActive) {
+		this.product_name = product_name;
+		this.description = description;
+		this.price = price;
+		this.isActive = isActive;
+	}
+
 	public long getId() {
 		return id;
 	}

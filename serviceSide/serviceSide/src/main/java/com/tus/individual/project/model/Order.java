@@ -31,8 +31,11 @@ public class Order {
 
 	@Column(name="finished")
 	private Date finished;
+
+	@Column(name="status")
+	private StatusEnum status;
 	
-	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER, orphanRemoval=true, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List <ProductQuantity> productsWithQuantities;
 
@@ -103,16 +106,24 @@ public class Order {
 		this.productsWithQuantities = productsWithQuantities;
 	}
 
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof Order)) return false;
 		Order order = (Order) o;
-		return Double.compare(order.getOrder_total(), getOrder_total()) == 0 && isPaid() == order.isPaid() && Objects.equals(getCustomer_name(), order.getCustomer_name()) && Objects.equals(getCustomer_email(), order.getCustomer_email()) && Objects.equals(getCreated(), order.getCreated()) && Objects.equals(getFinished(), order.getFinished()) && Objects.equals(getProductsWithQuantities(), order.getProductsWithQuantities());
+		return getId() == order.getId() && Double.compare(order.getOrder_total(), getOrder_total()) == 0 && isPaid() == order.isPaid() && Objects.equals(getCustomer_name(), order.getCustomer_name()) && Objects.equals(getCustomer_email(), order.getCustomer_email()) && Objects.equals(getCreated(), order.getCreated()) && Objects.equals(getFinished(), order.getFinished()) && getStatus() == order.getStatus() && Objects.equals(getProductsWithQuantities(), order.getProductsWithQuantities());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getOrder_total(), getCustomer_name(), getCustomer_email(), isPaid(), getCreated(), getFinished(), getProductsWithQuantities());
+		return Objects.hash(getId(), getOrder_total(), getCustomer_name(), getCustomer_email(), isPaid(), getCreated(), getFinished(), getStatus(), getProductsWithQuantities());
 	}
 }

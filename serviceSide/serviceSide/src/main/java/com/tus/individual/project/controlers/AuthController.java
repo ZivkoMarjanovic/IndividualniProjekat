@@ -199,4 +199,14 @@ public class AuthController {
         }
 
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<?> getUsers() {
+        try {
+             List<User> users = userRepository.findAll();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+    }
 }

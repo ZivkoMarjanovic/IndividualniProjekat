@@ -6,84 +6,108 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderDto {
+	
+	private long id;
 
-    private double order_total;
+    private double orderTotal;
 
-    private String customer_name;
+    private String customerName;
 
-    private String customer_email;
+    private String customerEmail;
 
     private boolean paid;
 
     private Date created;
 
     private Date finished;
+    
+    private String status;
 
     private List<ProductQuantity> productsWithQuantities;
 
-    public OrderDto(double order_total, String customer_name, String customer_email, boolean paid, Date created, Date finished, List<ProductQuantity> productsWithQuantities) {
-        this.order_total = order_total;
-        this.customer_name = customer_name;
-        this.customer_email = customer_email;
-        this.paid = paid;
-        this.created = created;
-        this.finished = finished;
-        this.productsWithQuantities = productsWithQuantities;
-    }
+	public OrderDto(long id, double orderTotal, String customerName, String customerEmail, boolean paid, Date created,
+			Date finished, String status, List<ProductQuantity> productsWithQuantities) {
+		super();
+		this.id = id;
+		this.orderTotal = orderTotal;
+		this.customerName = customerName;
+		this.customerEmail = customerEmail;
+		this.paid = paid;
+		this.created = created;
+		this.finished = finished;
+		this.status = status;
+		this.productsWithQuantities = productsWithQuantities;
+	}
 
-    public double getOrder_total() {
-        return order_total;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setOrder_total(double order_total) {
-        this.order_total = order_total;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public String getCustomer_name() {
-        return customer_name;
-    }
+	public double getOrderTotal() {
+		return orderTotal;
+	}
 
-    public void setCustomer_name(String customer_name) {
-        this.customer_name = customer_name;
-    }
+	public void setOrderTotal(double orderTotal) {
+		this.orderTotal = orderTotal;
+	}
 
-    public String getCustomer_email() {
-        return customer_email;
-    }
+	public String getCustomerName() {
+		return customerName;
+	}
 
-    public void setCustomer_email(String customer_email) {
-        this.customer_email = customer_email;
-    }
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
 
-    public boolean isPaid() {
-        return paid;
-    }
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
 
-    public void setPaid(boolean paid) {
-        this.paid = paid;
-    }
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
+	}
 
-    public Date getCreated() {
-        return created;
-    }
+	public boolean isPaid() {
+		return paid;
+	}
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+	public void setPaid(boolean paid) {
+		this.paid = paid;
+	}
 
-    public Date getFinished() {
-        return finished;
-    }
+	public Date getCreated() {
+		return created;
+	}
 
-    public void setFinished(Date finished) {
-        this.finished = finished;
-    }
+	public void setCreated(Date created) {
+		this.created = created;
+	}
 
-    public List<ProductQuantity> getProductsWithQuantities() {
-        return productsWithQuantities;
-    }
+	public Date getFinished() {
+		return finished;
+	}
 
-    public void setProductsWithQuantities(List<ProductQuantity> productsWithQuantities) {
-        this.productsWithQuantities = productsWithQuantities;
-    }
+	public void setFinished(Date finished) {
+		this.finished = finished;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public List<ProductQuantity> getProductsWithQuantities() {
+		return productsWithQuantities;
+	}
+
+	public void setProductsWithQuantities(List<ProductQuantity> productsWithQuantities) {
+		this.productsWithQuantities = productsWithQuantities;
+	}
 }

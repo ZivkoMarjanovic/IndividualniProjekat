@@ -1,56 +1,254 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Pablo & Friends</title>
-    <meta http-equiv="cache-control" content="no-cache">
-    <script src="js/jquery-3.4.1.js"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="script.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+	<title>Pablo&Friends</title>
+	<script src="js/jquery-3.4.1.js"></script>
+	<script src="js/jquery.dataTables.js"></script>
+	<link rel="stylesheet" href="css/jquery.dataTables.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/modal.css">
+	<script type="text/javascript" src="script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script type="text/javascript" src="js/graph.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/paper/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
+
 <body>
-<h1>Coffee Shop</h1>
 
-<div id="login">
-    <p>Login page</p>
-    <p>Name: <input type="text" value="Ada" id="name" /></p>
-    <p>Password: <input type="password" id="password" /></p>
-    <p><button type="button" onclick="login()">Login</button></p>
-</div>
+	<div class="menu" id="mainMenu" style="display: none;">
+		<nav class="navbar navbar-inverse navbar-fixed-left"
+			style="    -webkit-text-size-adjust: 100%; background-color: #f8f8f8;">
+			<a onclick="logOut()" class="sign-out pull-right" style="color: black; background-color: white;">
+			    <span>Sign Out</span>
+			    <i class="fa fa-sign-out"></i>
+			</a>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-controls="navbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+		
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li id="dashboardLi" onclick="getOrders()" class="arrow" style="display: none;"><a href="#" style="color: black;"><i class="fa fa-tachometer"
+								style="color: black;"></i><br>Dashboard</a></li>
 
-<div id="content" style="display:none">
-    <p>UserName:</p>
-    <input type="text" id="username">
-    <br>
-    <p>Email:</p>
-    <input id="email">
-    <br>
-    <p>Password:</p>
-    <input id="user-password">
-    <br>
-    <p>Role:</p>
-    <input id="role">
-    <br>
-    <p><button type="button" onclick="createUser()">Create User</button></p>
-    <br>
-    <br>
-    <p><button type="button" onclick="deleteUser()">Delete User</button></p>
-    <br>
-    <br>
-    <p><button type="button" onclick="updateUser()">Update User</button></p>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <p><button type="button" onclick="getOrders()">Get Orders</button></p>
-</div>
+					<li id="reportLi" class="dropdown" style="display: none;">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+							style="color: black; "><i class="fa fa-file" aria-hidden="true"></i><br>Report<span
+								class=""></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Report A</a></li>
+							<li><a href="#">Report B</a></li>
+						</ul>
+					</li>
+					<li id="usersLi" class="dropdown" style="display: none;">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+							style="color: black;"><i class="fa fa-user" aria-hidden="true"></i><br>Users<span
+								class=""></span></a>
+						<ul class="dropdown-menu">
+							<a type="button" onclick="getAllUsers()">Get All Users</a>
+							<br>
+							<a type="button" onclick="showCreateUser()">Add User</a>
+							<br>
+							<a type="button" onclick="showUpdateUser()">Update User</a>
+							<br>
+							<a type="button" onclick="showDeleteUser()">Delete User</a>
+						</ul>
+					</li>
+					<li id="salesLi" onclick="getStats()" style="display: none;"><a href="#" style="color: black;"><i class="fa fa-line-chart"
+								style="color: black;"></i><br>Sales</a></li>
+				</ul>
 
+			</div>
+		</nav>
+	</div>
+	
+
+	<div class="main" style="float: unset; width: 100%;">
+		<!-- Start menu Area -->
+		<section class="menu-area" id="coffee">
+			  
+			<div class="container">
+				<div class="row d-flex justify-content-center" style="margin-top: 100px;">
+					<div class="menu-content pb-60 col-lg-10">
+						
+						
+							<div id="allUsersDiv" style="display: none;">
+							<table id="tableAllUsers" class="display w3-table" style="padding: 5px;">
+								<thead style="color:#38598b; padding: 2px;">
+									<tr>
+										<td>User Name</td>
+										<td>Email</td>
+										<td>Role</td>
+									</tr>
+								</thead>
+								<tbody id="tablebodyUsers" style="color: #38598b; padding: 2px;"></tbody>
+							</table>
+						</div>
+						
+						
+
+
+
+						<div class="calendar3" id="newUserDiv" style="display: none;">
+							<form id="form">
+								<label for="email">Email*</label>
+								<input type="text" id="email" name="email" placeholder="Email..">
+								<label for="username">Name</label>
+								<input type="text" id="username" name="username" placeholder="Choose name..">
+								<label for="user-password">Password*</label>
+								<input type="password" id="user-password" name="user-password" placeholder="Password..">
+								<span toggle="#passw" id="eye" class="fa fa-fw fa-eye field-icon toggle-password"
+									onclick="show()">
+								</span>
+								<label for="role">Role</label>
+								<select id="role">
+									<option>Please, choose role ...</option>
+									<option>COFFEE_MAKER</option>
+									<option>MANAGER</option>
+								</select>
+								<input id="createUserInput" type="button" value="ADD USER" onclick="createUser() "
+									style="margin-top: 2%; margin-left: 10%;" style="display: none;">
+								<input id="updateUserInput" type="button" value="UPDATE USER" onclick="updateUser()" style="display: none;">
+							</form>
+						</div>
+
+
+
+						<div class="calendar3" id="deleteUserDiv" style="display: none;">
+							<form>
+								<label for="emailDelete">Email*</label>
+								<input type="text" id="emailDelete" name="emailDelete" placeholder="Email..">
+								<label for="usernameDelete">Name</label>
+								<input type="text" id="usernameDelete" name="usernameDelete" placeholder="Username..">
+								<input id="deleteUserInput" type="button" value="DELETE USER" onclick="deleteUser() "
+									style="margin-top: 2%; margin-left: 10%;">
+							</form>
+						</div>
+
+
+						<div id="dashboardDiv" style="display: none;">
+							<table id="tableAllOrders" class="display w3-table" style="padding: 5px;">
+								<thead style="color:#38598b; padding: 2px;">
+									<tr>
+										<td>Order Number</td>
+										<td>Customer Email</td>
+										<td>Customer Name</td>
+										<td>Status</td>
+									</tr>
+								</thead>
+								<tbody id="tablebodyOrders" style="color: #38598b; padding: 2px;"></tbody>
+							</table>
+						</div>
+
+
+						<div id="salesDiv" style="display: none;" >
+							<div class="chart-container" style="width:100%">
+							    <canvas id="chart"></canvas>
+							</div>
+						</div>
+
+
+						<section id="loginSection" class="login">
+							<div class="login_box">
+								<div class="left">
+									<div class="top_link"><a href="#"></a></div>
+									<div class="contact">
+										<form>
+											<h3>SIGN IN</h3>
+											<input id="name" type="text" placeholder="USERNAME">
+											<input id="password" type="text" placeholder="PASSWORD">
+											<button type="button" onclick="login()" class="submit">LET'S GO</button>
+										</form>
+									</div>
+								</div>
+								<div class="right">
+									<div class="right-text">
+										<h2>Pablo & Friends</h2>
+										<h5></h5>
+									</div>
+									<div class="right-inductor"></div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+				<div class="row">
+				</div>
+			</div>
+		</section>
+	</div>
+
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close">&times;</span>
+				<p id="modal-header-text">Success!</p>
+			</div>
+			<div class="modal-body" style="height:100px;">
+				<p id="modal-body-text" style="display:contents;">Message is not shown</p>
+			</div>
+			<div class="modal-footer">
+				<h3>Pablo & Friends</h3>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<!-- The FindModal -->
+	<div id="findModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content" style="width:60%; ">
+			<div class="modal-header" style=" flex-direction: row-reverse">
+				<span class="closee">&times;</span>
+				<p id="find-modal-header-text">Success!</p>
+			</div>
+			<div class="modal-body" style="height:500px; width:70%">
+				<div id="oneUserDiv">
+					<div  id="orderToFindInputDiv" style="display: flex; justify-content: space-between;">
+						<label for="searchOrder">Order ID:</label>
+						<input type="number" class="button" id="searchOrder" disabled="true">
+						<select id="statusSelect">
+							<option>PAID</option>
+							<option>SERVED</option>
+							<option>COLLECTED</option>
+						</select>
+						<br>
+						<button id="updateOrderStateButton" type="button" onclick="updateOrderState()">UPDATE_ORDER_STATE</button>
+					</div>
+					<table id="tableOneUser" class="display w3-table" style= "padding: 5px; font-size: small; margin-left: 20%;">
+						<thead style="color:#38598b; padding: 2px;">
+							<tr>
+								<td>Product</td>
+								<td>Quantity</td>
+							</tr>
+						</thead>
+						<tbody id="tablebodyOneUser" style="color: #38598b; padding: 2px;"></tbody>
+						<br>
+						<br>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<h3>Pablo & Friends</h3>
+			</div>
+		</div>
+	</div>
 </body>
+
 </html>
