@@ -9,6 +9,12 @@ function hideAll() {
     document.getElementById ("salesDiv").style.display = "none";
 }
 
+function logOut() {
+    hideAll();
+    document.getElementById ("loginSection").style.display = "";
+    document.getElementById ("mainMenu").style.display = "none";
+}
+
 function login() {
     const username = document.getElementById ("name").value;
     const password = document.getElementById ("password").value;
