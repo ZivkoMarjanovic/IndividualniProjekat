@@ -11,6 +11,8 @@ function hideAll() {
 
 function logOut() {
     hideAll();
+    document.getElementById ("name").value = "";
+    document.getElementById ("password").value = "";
     document.getElementById ("loginSection").style.display = "";
     document.getElementById ("mainMenu").style.display = "none";
 }
